@@ -1,0 +1,21 @@
+<!DOCTYPE <html>
+<html class="no-js" ng-app="ChessBoardApp">
+
+<body>
+    <!--tell browser where to display the inject the HTML,such as HelloWorld.html-->
+    <div ui-view></div>
+
+    <!--import the framework and controller. app.js-->
+
+    <!--Important !!! the order of the import things-->
+    <!--first load angular library, then app init file, finally your own controller, -->
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+    <script src="app.js"></script>
+    <script src="ChessBoardController.js"></script>
+
+</body>
+
+</html>
