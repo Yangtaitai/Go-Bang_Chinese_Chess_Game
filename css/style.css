@@ -1,0 +1,120 @@
+ h1 {
+     margin-top: 30px;
+     text-align: center;
+ }
+ 
+ #dots {
+     background-color: white;
+     height: 460px;
+     width: 460px;
+     margin: 20px auto;
+ }
+ 
+ .board {
+     position: relative;
+     width: 40px;
+     height: 40px;
+ }
+ 
+ .item {
+     background-color: #ffbd5f;
+     width: 30px;
+     height: 30px;
+     display: inline-block;
+     position: relative; // make the :: after, before things work out.
+ }
+ 
+ .item::after {
+     content: '';
+     position: absolute;
+     color: black;
+     height: 100%;
+     width: 100%;
+     border-top: 2px solid black;
+     margin-top: 50%;
+ }
+ 
+ .item::before {
+     content: '';
+     position: absolute;
+     color: black;
+     height: 100%;
+     width: 100%;
+     border-left: 2px solid black;
+     margin-left: 46%;
+ }
+ 
+ .item:hover {
+     cursor: pointer;
+ }
+ 
+ .dot-left::after {
+     content: '';
+     position: absolute;
+     margin-left: 50%;
+ }
+ 
+ .dot-right::after {
+     content: '';
+     position: absolute;
+     margin-left: -50%;
+ }
+ 
+ .dot-top::before {
+     content: '';
+     position: absolute;
+     margin-top: 50%;
+ }
+ 
+ .dot-bottom::before {
+     content: '';
+     position: absolute;
+     margin-top: -50%;
+ }
+ 
+ .point {
+     position: relative;
+     width: 100%;
+     height: 100%;
+     border-radius: 50%;
+     z-index: 20;
+ }
+ 
+ .point-white {
+     background: white;
+ }
+ 
+ .point-black {
+     background: black;
+ }
+ 
+ .focus {
+     position: absolute;
+     top: 2px;
+     bottom: 2px;
+     left: 2px;
+     right: 2px;
+     z-index: 10;
+ }
+ 
+ .focus:hover {
+     border: 1px solid red;
+ }
+ 
+ #player-turn {
+     position: absolute;
+     left: 150px;
+     top: 90px;
+     font-weight: bold;
+ }
+ 
+ #win {
+     position: absolute;
+     height: 90%;
+     width: 98%;
+     margin-left: 10px;
+     margin-right: 10px;
+     background: grey;
+     z-index: 2000;
+     opacity: 0.6;
+ }

@@ -18,74 +18,60 @@
                 }
             }
 
+            $scope.winFlag = false; //whether show win message
+
             $scope.nextStep = function(i, j) {
                 if ($scope.dots[i][j] == 0) { // current location can put chess.
-                    if ($scope.player == 1) { // white
-                        $scope.dots[i][j] = 1;
-                        $scope.player = 2;
-                        if ($scope.checkIfSomeoneWin(i, j)) {
-                            alert('white wins!');
-                            for (var i = 0; i < 15; i++) {
-                                for (var j = 0; j < 15; j++) {
-                                    dots[i][j] = 0;
-                                }
-                            }
-                        }
+                    $scope.dots[i][j] = $scope.player;
+                    $scope.player = ($scope.player == 1 ? 2 : 1);
+                    if ($scope.checkIfSomeoneWin(i, j)) {
+                        winFlag = true;
+                        $scope.player == 1 ? alert('Black player wins') : alert('White player wins');
 
-                    } else {
-                        $scope.dots[i][j] = 2; //black
-                        $scope.player = 1;
-                        if ($scope.checkIfSomeoneWin(i, j)) {
-                            alert('black wins!');
-                            for (var i = 0; i < 15; i++) {
-                                for (var j = 0; j < 15; j++) {
-                                    dots[i][j] = 0;
-                                }
+                        for (var i = 0; i < 15; i++) {
+                            for (var j = 0; j < 15; j++) {
+                                dots[i][j] = 0;
                             }
-
                         }
                     }
                 }
-                // console.log($scope.dots[i][j]);
+                console.log($scope.dots[i][j]);
+            }
+
+            //optimized function
+            $scope.getNumber = function(i, j, flag1, flag2) {
+                var a = flag1; // treat flag as offset later
+                var b = flag2; // flag1,flag2 value can only be 1,0,-1.
+                var count = 0;
+
+                while (i + a < 15 && j + a < 15 && dots[i + a][j + b] == dots[i][j]) {
+                    a += flag1;
+                    b += flag2;
+                    count++;
+                }
+                return count;
             }
 
             $scope.checkIfSomeoneWin = function(i, j) {
-                var count11 = 0, //horizon left
-                    count12 = 0, // horizon right
-                    count21 = 0, // vertical up
-                    count22 = 0, // vertical down
-                    count31 = 0, //left down
-                    count32 = 0, //right up
-                    count41 = 0, //left up
-                    count42 = 0; //right down
 
-                console.log(dots[i][j]);
+                var count1 = $scope.getNumber(i, j, 0, -1) + $scope.getNumber(i, j, 0, 1) + 1;
+                var count2 = $scope.getNumber(i, j, -1, 0) + $scope.getNumber(i, j, 1, 0) + 1;
+                var count3 = $scope.getNumber(i, j, -1, 1) + $scope.getNumber(i, j, 1, -1) + 1;
+                var count4 = $scope.getNumber(i, j, -1, -1) + $scope.getNumber(i, j, 1, 1) + 1;
 
-
-                //optimized function
-
-                $scope.getNumber = function(i, j, flag1, flag2) {
-                    var a = flag1; // treat flag as offset later
-                    var b = flag2; // flag1,flag2 value can only be 1,0,-1.
-                    var count = 0;
-
-                    while (i + b < 15 && j + a < 15 && dots[i + b][j + a] == dots[i][j]) {
-                        a += flag1;
-                        b += flag2;
-                        count++;
-                    }
-                    return count;
-                }
-
-                var count1 = $scope.getNumber(i, j, -1, 0) + $scope.getNumber(i, j, 1, 0) + 1;
-                var count2 = $scope.getNumber(i, j, 0, -1) + $scope.getNumber(i, j, 0, 1) + 1;
-                var count3 = $scope.getNumber(i, j, -1, -1) + $scope.getNumber(i, j, 1, 1) + 1;
-                var count4 = $scope.getNumber(i, j, -1, 1) + $scope.getNumber(i, j, 1, -1) + 1;
 
                 if (count1 >= 5 || count2 >= 5 || count3 >= 5 || count4 >= 5) {
                     return true;
                 }
 
+                // var count11 = 0, //horizon left
+                //     count12 = 0, // horizon right
+                //     count21 = 0, // vertical up
+                //     count22 = 0, // vertical down
+                //     count31 = 0, //left down
+                //     count32 = 0, //right up
+                //     count41 = 0, //left up
+                //     count42 = 0; //right down
 
                 // second one
                 // $scope.getNumberLeft = function(i, j) {
