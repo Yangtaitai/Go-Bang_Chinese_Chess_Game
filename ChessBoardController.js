@@ -44,7 +44,7 @@
                 var b = flag2; // flag1,flag2 value can only be 1,0,-1.
                 var count = 0;
 
-                while (i + a <= 14 i + a >= 0 && j + a <= 14 && j + a >= 0 && dots[i + a][j + b] == dots[i][j]) {
+                while (i + a <= 14 && i + a >= 0 && j + a <= 14 && j + a >= 0 && dots[i + a][j + b] == dots[i][j]) {
                     a += flag1;
                     b += flag2;
                     count++;
